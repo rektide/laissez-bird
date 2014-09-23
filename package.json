@@ -1,0 +1,14 @@
+{
+	"name": "laissez-bird",
+	"version": "1.0.0",
+	"description": "Lazy promises on Bluebird",
+	"main": "laissez-bird.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "rektide",
+	"license": "X",
+	"dependencies": {
+		"bluebird": "^2.3.2"
+	}
+}
