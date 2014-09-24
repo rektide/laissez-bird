@@ -27,7 +27,21 @@ Promise.prototype._then = (function _then(didFulfill, didReject, didProgress, re
 			this.defer.resolve(underlying)
 
 		// call any thenevers
-		var len = this.thenevers
+		var len = this.thenevers.length
+		while(i > 0){
+			this.defer.then.apply(this.defer, this.thenevers[--i])
+		}
 	}
 	return Bluebird.prototype._then.call(this, didFulfill, didReject, didProgress, received, internalDate)
+})
+
+Promise.prototype.thenever= (function thenever(didFulfil, didReject, didProgress){
+	if(this.factory){
+		var args= Array.prototype.slice(arguments, 0)
+		if(this.thenevers)
+			this.thenevers.push(args)
+		else
+			this.thenevers= [args]
+	}else
+		this.defer.then(didFulfil, didReject, didProgress)
 })
