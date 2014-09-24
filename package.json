@@ -10,5 +10,8 @@
 	"license": "X",
 	"dependencies": {
 		"bluebird": "^2.3.2"
+	},
+	"devDependencies": {
+		"blue-tape": "^0.1.7"
 	}
 }

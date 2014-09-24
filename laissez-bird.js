@@ -52,13 +52,11 @@ Promise.prototype._then = (function _then(didFulfill, didReject, didProgress, re
 	return Bluebird.prototype._then.call(this, didFulfill, didReject, didProgress, received, internalDate)
 })
 
-Promise.prototype.thenever= (function thenever(didFulfil, didReject, didProgress){
-	if(this.factory){
-		var args= Array.prototype.slice(arguments, 0)
-		if(this.thenevers)
-			this.thenevers.push(args)
-		else
-			this.thenevers= [args]
-	}else
-		this.defer.then(didFulfil, didReject, didProgress)
+Promise.prototype.thenever= (function thenever(didFulfill, didReject, didProgress){
+	// hideous hack alert:
+	var borrow= this.factory
+	this.factory= null
+	var rv= Bluebird.prototype.then.call(this, didFulfill, didReject, didProgress)
+	this.factory= borrow
+	return rv
 })
